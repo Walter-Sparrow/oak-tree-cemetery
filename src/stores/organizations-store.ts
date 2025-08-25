@@ -1,5 +1,6 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import type { AuthStore } from "./auth-store";
+import { API } from "@/constants";
 
 export interface Company {
   id: string;
@@ -27,12 +28,44 @@ export interface Photo {
 
 export class OrganizationsStore {
   authStore: AuthStore;
+
   organizations: Company[] = [];
+  loading = false;
+  error: string | null = null;
 
   constructor(authStore: AuthStore) {
     this.authStore = authStore;
     makeAutoObservable(this);
   }
 
-  async fetchCompamies() {}
+  async fetchCompamies(abortSignal?: AbortSignal) {
+    this.loading = true;
+    this.error = null;
+
+    try {
+      const response = await fetch(`${API}/companies/12`, {
+        signal: abortSignal,
+        headers: {
+          Authorization: `Bearer ${this.authStore.user?.token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Fetch error: ${response.status}`);
+      }
+
+      const company = (await response.json()) as Company;
+      this.organizations = [company];
+    } catch (err: any) {
+      if (err.name === "AbortError") {
+        return;
+      }
+
+      runInAction(() => {
+        this.error = err.message;
+      });
+    } finally {
+      this.loading = false;
+    }
+  }
 }

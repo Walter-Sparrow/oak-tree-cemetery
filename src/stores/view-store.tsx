@@ -13,7 +13,7 @@ export const viewMap: Record<View, ReactNode> = {
   clients: <NotImplemented />,
 };
 
-class ViewStore {
+export class ViewStore {
   view: View = "organizations";
   context: any = null;
 
@@ -26,5 +26,3 @@ class ViewStore {
     this.context = context;
   }
 }
-
-export const viewStore = new ViewStore();

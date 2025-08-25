@@ -1,3 +1,4 @@
+import { API } from "@/constants";
 import { makeAutoObservable, runInAction } from "mobx";
 
 interface User {
@@ -20,9 +21,7 @@ export class AuthStore {
 
     try {
       const response = await fetch(
-        `https://test-task-api.allfuneral.com/auth?user=${encodeURIComponent(
-          username
-        )}`
+        `${API}/auth?user=${encodeURIComponent(username)}`
       );
 
       if (!response.ok) {

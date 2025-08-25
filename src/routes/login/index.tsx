@@ -27,6 +27,7 @@ export const Login = observer(() => {
           <span>Oak Tree Cemetery</span>
         </div>
         <Input
+          ref={(ref) => ref?.focus()}
           placeholder="Enter your username..."
           value={username}
           onChange={(e) => setUsername(e.target.value)}
