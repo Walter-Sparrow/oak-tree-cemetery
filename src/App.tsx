@@ -3,7 +3,7 @@ import styles from "./app.module.scss";
 import { MainMenu, type MenuElements } from "./components/main-menu/MainMenu";
 import { ProcessManager } from "./routes/process-manager";
 
-export function App() {
+export const App = () => {
   const [view, setView] = useState<MenuElements>("home");
 
   return (
@@ -14,4 +14,4 @@ export function App() {
       </main>
     </div>
   );
-}
+};

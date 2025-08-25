@@ -1,0 +1,40 @@
+@use "@/styles/_colors.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, #fff, #000 10%);
+  height: 100vh;
+
+  .card {
+    width: 480px;
+    gap: 20px;
+
+    .vendor {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      .logo {
+        display: block;
+        width: 32px;
+        height: 32px;
+
+        path {
+          fill: #000;
+        }
+      }
+
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .error {
+    margin: 0;
+    color: colors.color(assistive, red);
+  }
+}

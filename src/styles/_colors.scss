@@ -10,6 +10,10 @@ $colors: (
     light: #9981ff,
     dark: #6d4aff,
   ),
+  assistive: (
+    focus: #35cdfd,
+    red: #d72323,
+  ),
 );
 
 @function color($group, $shade: base) {
