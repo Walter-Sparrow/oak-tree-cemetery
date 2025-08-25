@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+
+  .content {
+    overflow: auto;
+    width: 100%;
+    background-color: color-mix(in srgb, #fff, #000 3%);
+  }
+}
