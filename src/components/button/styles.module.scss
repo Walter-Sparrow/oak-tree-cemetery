@@ -1,0 +1,143 @@
+@use "@/styles/_colors.scss";
+@use "@/styles/_mixins.scss";
+@use "sass:map";
+
+$sizes: (
+  oversize: (
+    padding: 0.85rem 3.25rem,
+    font-size: 15px,
+  ),
+  normal: (
+    padding: 0.8rem 3.25rem,
+    font-size: 13px,
+  ),
+  mini: (
+    padding: 0.45rem 1rem,
+    font-size: 11px,
+  ),
+);
+
+$variants: (
+  filled: (
+    base: (
+      background: colors.color(primary),
+      color:
+        rgba(
+          $color: #fff,
+          $alpha: 0.95,
+        ),
+    ),
+    hover: (
+      background: colors.color(primary, light),
+    ),
+  ),
+  outlined: (
+    base: (
+      background: transparent,
+      color: colors.color(primary),
+      border: 1px solid
+        rgba(
+          $color: #000,
+          $alpha: 0.2,
+        ),
+    ),
+    hover: (
+      color: colors.color(secondary, dark),
+      border: 1px solid
+        rgba(
+          $color: #000,
+          $alpha: 0.4,
+        ),
+    ),
+    active: (
+      color: colors.color(secondary, base),
+      border: 1px solid colors.color(secondary, base),
+    ),
+  ),
+);
+
+.button {
+  display: inline-flex;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease,
+    box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+  }
+
+  &--icon-position-left &__icon,
+  &--icon-position-right &__icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &--icon-position-left &__icon {
+    left: 12px;
+  }
+
+  &--icon-position-right &__icon {
+    right: 12px;
+  }
+
+  &--mini.button--icon-position-left {
+    .button__icon {
+      left: 8px;
+    }
+
+    .button__label {
+      margin-left: 16px;
+    }
+  }
+
+  &--mini.button--icon-position-right {
+    .button__icon {
+      right: 8px;
+    }
+
+    .button__label {
+      margin-right: 16px;
+    }
+  }
+
+  @each $name, $props in $sizes {
+    &--#{$name} {
+      padding: map.get($props, padding);
+      font-size: map.get($props, font-size);
+      line-height: 1;
+    }
+  }
+
+  @each $name, $props in $variants {
+    &--#{$name} {
+      @each $variant, $map in $props {
+        @if $variant == hover {
+          &:hover {
+            @each $property, $value in $map {
+              #{$property}: $value;
+            }
+          }
+        } @else if $variant == active {
+          &:active {
+            @each $property, $value in $map {
+              #{$property}: $value;
+            }
+          }
+        } @else {
+          @each $property, $value in $map {
+            #{$property}: $value;
+          }
+        }
+      }
+    }
+  }
+}

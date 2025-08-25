@@ -1,0 +1,17 @@
+@use "sass:map";
+
+$colors: (
+  primary: (
+    base: #404040,
+    light: color-mix(in srgb, #404040, white 20%),
+  ),
+  secondary: (
+    base: #6243e6,
+    light: #9981ff,
+    dark: #6d4aff,
+  ),
+);
+
+@function color($group, $shade: base) {
+  @return map.get(map.get($colors, $group), $shade);
+}

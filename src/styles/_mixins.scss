@@ -1,0 +1,16 @@
+@function map-get-prop($map, $variant, $property) {
+  $variant-map: map-get($map, $variant);
+
+  @if $variant-map == null {
+    @warn "Variant `#{$variant}` not found in the map.";
+    @return null;
+  }
+
+  $value: map-get($variant-map, $property);
+
+  @if $value == null {
+    @warn "Property `#{$property}` not found for variant `#{$variant}`.";
+  }
+
+  @return $value;
+}
