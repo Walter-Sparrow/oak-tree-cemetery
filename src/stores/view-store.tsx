@@ -6,11 +6,11 @@ import type { ReactNode } from "react";
 
 export type View = "organization" | "organizations" | "contractors" | "clients";
 
-export const viewMap: Record<View, ReactNode> = {
-  organizations: <Organizations />,
-  organization: <OrganizationDetails />,
-  contractors: <NotImplemented />,
-  clients: <NotImplemented />,
+export const viewMap: Record<View, () => ReactNode> = {
+  organizations: () => <Organizations />,
+  organization: () => <OrganizationDetails />,
+  contractors: () => <NotImplemented />,
+  clients: () => <NotImplemented />,
 };
 
 export class ViewStore {

@@ -1,0 +1,28 @@
+@use "@/styles/_colors.scss";
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  border-radius: 100%;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke: #000;
+  }
+
+  &:hover {
+    background-color: rgba(colors.color(primary), 0.05);
+  }
+
+  &:active {
+    background-color: rgba(colors.color(secondary, light), 0.2);
+  }
+}

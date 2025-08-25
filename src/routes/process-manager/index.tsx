@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { ProcessManagerSidebar } from "./components/sidebar/Sidebar";
 import styles from "./process-manager.module.scss";
 import { viewMap } from "@/stores/view-store";
-import { useStore } from "@/stores/rootStore";
+import { useStore } from "@/stores/root-store";
 
 export const ProcessManager = observer(() => {
   const { viewStore } = useStore();
@@ -13,7 +13,7 @@ export const ProcessManager = observer(() => {
         selectedView={viewStore.view}
         onChangeView={(view) => viewStore.switchView(view)}
       />
-      <div className={styles.content}>{viewMap[viewStore.view]}</div>
+      <div className={styles.content}>{viewMap[viewStore.view]()}</div>
     </div>
   );
 });

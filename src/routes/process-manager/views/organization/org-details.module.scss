@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  width: 100%;
+
+  .content {
+    width: 640px;
+
+    h1 {
+      margin: 0;
+      font-weight: normal;
+      font-size: 28px;
+    }
+
+    .header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .back {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        margin-inline-start: -64px;
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { Card } from "@/components/card/Card";
 import { Button } from "@/components/button/Button";
 import { Input } from "@/components/input/Input";
 import { useState } from "react";
-import { useStore } from "@/stores/rootStore";
+import { useStore } from "@/stores/root-store";
 
 export const Login = observer(() => {
   const { authStore } = useStore();

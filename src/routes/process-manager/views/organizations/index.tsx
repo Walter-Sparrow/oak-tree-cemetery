@@ -1,6 +1,6 @@
 import { Loading } from "@/components/loading/Loading";
 import { Error } from "@/components/error/Error";
-import { useStore } from "@/stores/rootStore";
+import { useStore } from "@/stores/root-store";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { OrganizationCard } from "../../components/organization-card/OrganizationCard";

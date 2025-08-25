@@ -3,7 +3,7 @@ import styles from "./main-menu.module.scss";
 import Logo from "@/assets/svg/logo.svg?react";
 import Trash from "@/assets/svg/trash.svg?react";
 import { observer } from "mobx-react-lite";
-import { useStore } from "@/stores/rootStore";
+import { useStore } from "@/stores/root-store";
 
 export type MenuElements = "home" | "search";
 

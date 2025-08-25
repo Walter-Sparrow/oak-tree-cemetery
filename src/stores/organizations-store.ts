@@ -39,8 +39,10 @@ export class OrganizationsStore {
   }
 
   async fetchCompamies(abortSignal?: AbortSignal) {
-    this.loading = true;
-    this.error = null;
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
 
     try {
       const response = await fetch(`${API}/companies/12`, {
@@ -55,7 +57,9 @@ export class OrganizationsStore {
       }
 
       const company = (await response.json()) as Company;
-      this.organizations = [company];
+      runInAction(() => {
+        this.organizations = [company];
+      });
     } catch (err: any) {
       if (err.name === "AbortError") {
         return;
@@ -65,7 +69,9 @@ export class OrganizationsStore {
         this.error = err.message;
       });
     } finally {
-      this.loading = false;
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   }
 }

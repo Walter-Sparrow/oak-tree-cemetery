@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Dashboard } from "./routes/dashboard";
 import { Login } from "./routes/login";
-import { useStore } from "./stores/rootStore";
+import { useStore } from "./stores/root-store";
 
 export const App = observer(() => {
   const { authStore } = useStore();

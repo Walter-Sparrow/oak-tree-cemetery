@@ -16,8 +16,10 @@ export class AuthStore {
   }
 
   async login(username: string) {
-    this.loading = true;
-    this.error = null;
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
 
     try {
       const response = await fetch(
