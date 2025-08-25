@@ -1,17 +1,10 @@
-import { useState } from "react";
-import styles from "./app.module.scss";
-import { MainMenu, type MenuElements } from "./components/main-menu/MainMenu";
-import { ProcessManager } from "./routes/process-manager";
+import { observer } from "mobx-react-lite";
+import { Dashboard } from "./routes/dashboard";
+import { Login } from "./routes/login";
+import { useStore } from "./stores/rootStore";
 
-export const App = () => {
-  const [view, setView] = useState<MenuElements>("home");
+export const App = observer(() => {
+  const { authStore } = useStore();
 
-  return (
-    <div className={styles.container}>
-      <MainMenu value={view} onChange={setView} />
-      <main className={styles.content}>
-        {view === "home" && <ProcessManager />}
-      </main>
-    </div>
-  );
-};
+  return authStore.user ? <Dashboard /> : <Login />;
+});

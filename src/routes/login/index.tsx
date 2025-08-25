@@ -5,9 +5,11 @@ import { Card } from "@/components/card/Card";
 import { Button } from "@/components/button/Button";
 import { Input } from "@/components/input/Input";
 import { useState } from "react";
-import { authStore } from "@/stores/auth-store";
+import { useStore } from "@/stores/rootStore";
 
 export const Login = observer(() => {
+  const { authStore } = useStore();
+
   const [username, setUsername] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {

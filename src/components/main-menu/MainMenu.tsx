@@ -2,6 +2,8 @@ import { MenuButton } from "./menu-button/MenuButton";
 import styles from "./main-menu.module.scss";
 import Logo from "@/assets/svg/logo.svg?react";
 import Trash from "@/assets/svg/trash.svg?react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "@/stores/rootStore";
 
 export type MenuElements = "home" | "search";
 
@@ -10,7 +12,9 @@ export interface MenuProps {
   onChange: (value: MenuElements) => void;
 }
 
-export function MainMenu({ value, onChange }: MenuProps) {
+export const MainMenu = observer(({ value, onChange }: MenuProps) => {
+  const { authStore } = useStore();
+
   return (
     <nav className={styles.nav}>
       <div className={styles.items}>
@@ -33,8 +37,12 @@ export function MainMenu({ value, onChange }: MenuProps) {
       <span className={styles.divider} />
       <div className={styles.items}>
         <MenuButton icon={<Trash />} title="Settings" />
-        <MenuButton icon={<Trash />} title="Logout" />
+        <MenuButton
+          icon={<Trash />}
+          title="Logout"
+          onClick={() => authStore.logout()}
+        />
       </div>
     </nav>
   );
-}
+});

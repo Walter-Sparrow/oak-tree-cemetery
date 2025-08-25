@@ -5,7 +5,7 @@ interface User {
   token: string;
 }
 
-class AuthStore {
+export class AuthStore {
   user: User | null = null;
   loading = false;
   error: string | null = null;
@@ -56,5 +56,3 @@ class AuthStore {
     this.error = null;
   }
 }
-
-export const authStore = new AuthStore();
