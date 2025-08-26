@@ -30,11 +30,12 @@ export const Organizations = observer(() => {
     <div className={styles.organizations}>
       <h1 className={styles.organizations__title}>Organizations</h1>
       <div className={styles.organizations__container}>
+        {organizationsStore.organizations.length === 0 && <>No organizations</>}
         {organizationsStore.organizations.map((org) => (
           <OrganizationCard
             key={org.id}
             organization={org}
-            onClick={() => viewStore.switchView("organization", org)}
+            onClick={() => viewStore.switchView("organization", org.id)}
           />
         ))}
       </div>

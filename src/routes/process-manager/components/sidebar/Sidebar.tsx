@@ -25,7 +25,12 @@ export function ProcessManagerSidebar({
         <div className={styles.sidebar__divider} />
         <div className={styles.sidebar__menu}>
           <Button
-            variant={selectedView === "organizations" ? "filled" : "outlined"}
+            variant={
+              selectedView === "organizations" ||
+              selectedView === "organization"
+                ? "filled"
+                : "outlined"
+            }
             onClick={() => onChangeView("organizations")}
             icon={<Briefcase />}
           >
