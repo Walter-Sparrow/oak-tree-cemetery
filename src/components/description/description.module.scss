@@ -1,0 +1,36 @@
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    line-height: 32px;
+  }
+
+  &__label {
+    font-size: 13px;
+    color: #000;
+    opacity: 50%;
+    width: 160px;
+  }
+
+  &__value {
+    font-size: 14px;
+    color: #000;
+    opacity: 80%;
+  }
+
+  &__values {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__divider {
+    font-size: 14px;
+    color: #000;
+    opacity: 30%;
+  }
+}

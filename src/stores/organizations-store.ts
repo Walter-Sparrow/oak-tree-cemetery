@@ -2,9 +2,20 @@ import { makeAutoObservable, runInAction } from "mobx";
 import type { AuthStore } from "./auth-store";
 import { API } from "@/constants";
 
+export interface Contact {
+  id: string;
+  lastname: string;
+  firstname: string;
+  phone: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Company {
   id: string;
   contactId: string;
+  contact: Contact;
   name: string;
   shortName: string;
   businessEntity: string;
@@ -57,6 +68,24 @@ export class OrganizationsStore {
       }
 
       const company = (await response.json()) as Company;
+
+      const contactRespone = await fetch(
+        `${API}/contacts/${company.contactId}`,
+        {
+          signal: abortSignal,
+          headers: {
+            Authorization: `Bearer ${this.authStore.user?.token}`,
+          },
+        }
+      );
+
+      if (!contactRespone.ok) {
+        throw new Error(`Fetch contact error: ${contactRespone.status}`);
+      }
+
+      const contact = (await contactRespone.json()) as Contact;
+      company.contact = contact;
+
       runInAction(() => {
         this.organizations = [company];
       });

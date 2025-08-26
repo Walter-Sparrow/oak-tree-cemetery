@@ -1,7 +1,28 @@
 import classNames from "classnames";
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import styles from "./card.module.scss";
 
-export function Card({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return <div {...rest} className={classNames(styles.card, className)} />;
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  title?: string;
+  actions?: ReactNode;
+}
+
+export function Card({
+  className,
+  title,
+  actions,
+  children,
+  ...rest
+}: CardProps) {
+  return (
+    <div {...rest} className={classNames(styles.card, className)}>
+      {(title || actions) && (
+        <div className={styles.header}>
+          <span>{title}</span>
+          {actions}
+        </div>
+      )}
+      {children}
+    </div>
+  );
 }

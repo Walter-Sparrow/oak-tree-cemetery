@@ -18,6 +18,12 @@
     stroke: #000;
   }
 
+  &--danger {
+    svg {
+      stroke: colors.color(assistive, red);
+    }
+  }
+
   &:hover {
     background-color: rgba(colors.color(primary), 0.05);
   }

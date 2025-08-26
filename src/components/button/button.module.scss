@@ -81,31 +81,33 @@ $variants: (
     transform: translateY(-50%);
   }
 
-  &--icon-position-left &__icon {
-    left: 12px;
-  }
-
-  &--icon-position-right &__icon {
-    right: 12px;
-  }
-
-  &--mini.button--icon-position-left {
-    .button__icon {
-      left: 8px;
+  &:has(.button__label) {
+    &.button--icon-position-left .button__icon {
+      left: 12px;
     }
 
-    .button__label {
-      margin-left: 16px;
-    }
-  }
-
-  &--mini.button--icon-position-right {
-    .button__icon {
-      right: 8px;
+    &.button--icon-position-right .button__icon {
+      right: 12px;
     }
 
-    .button__label {
-      margin-right: 16px;
+    &.button--mini.button--icon-position-left {
+      .button__icon {
+        left: 8px;
+      }
+
+      .button__label {
+        margin-left: 16px;
+      }
+    }
+
+    &.button--mini.button--icon-position-right {
+      .button__icon {
+        right: 8px;
+      }
+
+      .button__label {
+        margin-right: 16px;
+      }
     }
   }
 
@@ -114,6 +116,10 @@ $variants: (
       padding: map.get($props, padding);
       font-size: map.get($props, font-size);
       line-height: 1;
+
+      &:not(:has(.button__label)) {
+        padding: nth(map.get($props, padding), 1);
+      }
     }
   }
 

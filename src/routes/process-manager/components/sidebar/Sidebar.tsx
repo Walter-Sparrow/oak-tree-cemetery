@@ -1,7 +1,9 @@
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import styles from "./sidebar.module.scss";
 import { Button } from "@/components/button/Button";
-import Trash from "@/assets/svg/trash.svg?react";
+import Briefcase from "@/assets/svg/briefcase.svg?react";
+import Archive from "@/assets/svg/archive.svg?react";
+import User from "@/assets/svg/user.svg?react";
 import type { View } from "@/stores/view-store";
 
 export interface SidebarProps {
@@ -25,21 +27,21 @@ export function ProcessManagerSidebar({
           <Button
             variant={selectedView === "organizations" ? "filled" : "outlined"}
             onClick={() => onChangeView("organizations")}
-            icon={<Trash />}
+            icon={<Briefcase />}
           >
             Organizations
           </Button>
           <Button
             variant={selectedView === "contractors" ? "filled" : "outlined"}
             onClick={() => onChangeView("contractors")}
-            icon={<Trash />}
+            icon={<Archive />}
           >
             Contractors
           </Button>
           <Button
             variant={selectedView === "clients" ? "filled" : "outlined"}
             onClick={() => onChangeView("clients")}
-            icon={<Trash />}
+            icon={<User />}
           >
             Clients
           </Button>
