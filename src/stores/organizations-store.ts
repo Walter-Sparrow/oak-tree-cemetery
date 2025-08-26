@@ -12,18 +12,30 @@ export interface Contact {
   updatedAt: string;
 }
 
+export const BusinessEntity = {
+  SoleProprietorship: "Sole Proprietorship",
+  Partnership: "Partnership",
+  LimitedLiabilityCompany: "Limited Liability Company",
+} as const;
+
+export const CompanyType = {
+  FuneralHome: "funeral_home",
+  LogisticsServices: "logistics_services",
+  BurialCareContractor: "burial_care_contractor",
+} as const;
+
 export interface Company {
   id: string;
   contactId: string;
   contact: Contact;
   name: string;
   shortName: string;
-  businessEntity: string;
+  businessEntity: (typeof BusinessEntity)[keyof typeof BusinessEntity];
   contract: {
     no: string;
     issue_date: string;
   };
-  type: string[];
+  type: (typeof CompanyType)[keyof typeof CompanyType][];
   status: string;
   photos: Photo[];
   createdAt: string;
@@ -244,6 +256,53 @@ export class OrganizationsStore {
         const company = this.organizations.find((org) => org.id === companyId);
         if (company) {
           company.photos.push(newPhoto);
+        }
+      });
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.message;
+      });
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
+
+  async updateOrganization(updatedCompany: Company) {
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
+
+    try {
+      const response = await fetch(`${API}/companies/${updatedCompany.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.authStore.user?.token}`,
+        },
+        body: JSON.stringify({
+          name: updatedCompany.name,
+          shortName: updatedCompany.shortName,
+          businessEntity: updatedCompany.businessEntity,
+          contract: updatedCompany.contract,
+          type: updatedCompany.type,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Update company error: ${response.status}`);
+      }
+
+      const partialUpdate = (await response.json()) as Company;
+
+      runInAction(() => {
+        const company = this.organizations.find(
+          (o) => o.id === updatedCompany.id
+        );
+        if (company) {
+          Object.assign(company, partialUpdate);
         }
       });
     } catch (err: any) {

@@ -1,0 +1,107 @@
+@use "@/styles/_colors.scss";
+
+.select {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+
+  &__display {
+    display: flex;
+    border: 1px solid rgba(#000, 0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.25s ease;
+    cursor: pointer;
+    background-color: #fff;
+
+    &:hover {
+      border-color: rgba(#000, 0.5);
+    }
+  }
+
+  &__arrow {
+    stroke: #000;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    transform: translateY(-50%) rotate(-90deg);
+    transition: transform 0.25s ease;
+
+    &--open {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background-color: #fff;
+    border: 1px solid rgba(#000, 0.2);
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 9999;
+    box-shadow: 0 4px 6px rgba(#000, 0.1);
+  }
+
+  &__option {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    color: rgba(#000, 0.8);
+    font-size: 13px;
+    cursor: pointer;
+
+    &--selected {
+      background: rgba(#000, 0.05);
+      color: colors.color(primary);
+      font-weight: 500;
+    }
+
+    &--multiple {
+      .select__checkbox {
+        margin-right: 12px;
+        appearance: none;
+
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+
+        border: 1px solid rgba(#000, 0.3);
+        border-radius: 4px;
+        background-color: #fff;
+        transition: border-color 0.25s ease, background-color 0.25s ease;
+
+        &:hover {
+          border-color: rgba(#000, 0.5);
+        }
+
+        &:checked {
+          fill: #000;
+          background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M16.875 5.62537L8.125 14.375L3.75 10.0004' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 16px 16px;
+        }
+      }
+    }
+
+    &:hover {
+      background: rgba(#000, 0.1);
+    }
+  }
+
+  &--open {
+    .select__display {
+      border: 1px solid colors.color(assistive, focus);
+      outline: 1px solid colors.color(assistive, focus);
+    }
+  }
+}
