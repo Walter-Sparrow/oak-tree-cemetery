@@ -143,4 +143,36 @@ export class OrganizationsStore {
       });
     }
   }
+
+  async removeOrganization(id: string) {
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
+
+    try {
+      const response = await fetch(`${API}/companies/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${this.authStore.user?.token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Delete error: ${response.status}`);
+      }
+
+      runInAction(() => {
+        this.organizations = this.organizations.filter((org) => org.id !== id);
+      });
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.message;
+      });
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
 }

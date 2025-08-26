@@ -1,4 +1,3 @@
-import type { Company } from "@/stores/organizations-store";
 import { useStore } from "@/stores/root-store";
 import { observer } from "mobx-react-lite";
 import styles from "./org-details.module.scss";
@@ -12,6 +11,7 @@ import { PhotosCard } from "../../components/photos-card/PhotosCard";
 import { useState } from "react";
 import { OrganizationRenameModal } from "../../components/organization-rename-modal/OrganizationRenameModal";
 import { Error } from "@/components/error/Error";
+import { OrganizationRemoveModal } from "../../components/organization-remove-modal/OrganizationRemoveModal";
 
 export const OrganizationDetails = observer(() => {
   const { viewStore, organizationsStore } = useStore();
@@ -19,6 +19,7 @@ export const OrganizationDetails = observer(() => {
   const org = organizationsStore.organizations.find((o) => o.id === orgId);
 
   const [openRenameModal, setOpenRenameModal] = useState(false);
+  const [openRemoveModal, setOpenRemoveModal] = useState(false);
 
   if (!org) {
     return <Error message={`No organization with id=${orgId}`} />;
@@ -40,7 +41,11 @@ export const OrganizationDetails = observer(() => {
                 icon={<Pencil />}
                 onClick={() => setOpenRenameModal(true)}
               />
-              <IconButton danger icon={<Trash />} />
+              <IconButton
+                danger
+                icon={<Trash />}
+                onClick={() => setOpenRemoveModal(true)}
+              />
             </div>
           </div>
           <div className={styles.details__cards}>
@@ -54,6 +59,11 @@ export const OrganizationDetails = observer(() => {
         organization={org}
         isOpen={openRenameModal}
         onOpenChange={setOpenRenameModal}
+      />
+      <OrganizationRemoveModal
+        organization={org}
+        isOpen={openRemoveModal}
+        onOpenChange={setOpenRemoveModal}
       />
     </>
   );
