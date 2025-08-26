@@ -51,7 +51,7 @@ export const OrganizationDetails = observer(() => {
           <div className={styles.details__cards}>
             <OrganizationDetailsCard organization={org} />
             <ContactCard contact={org.contact} />
-            <PhotosCard photos={org.photos} />
+            <PhotosCard organizationId={org.id} photos={org.photos} />
           </div>
         </div>
       </div>

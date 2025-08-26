@@ -175,4 +175,44 @@ export class OrganizationsStore {
       });
     }
   }
+
+  async removeOrganizationImage(companyId: string, imageName: string) {
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
+
+    try {
+      const response = await fetch(
+        `${API}/companies/${companyId}/image/${imageName}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${this.authStore.user?.token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Delete image error: ${response.status}`);
+      }
+
+      runInAction(() => {
+        const company = this.organizations.find((org) => org.id === companyId);
+        if (company) {
+          company.photos = company.photos.filter(
+            (photo) => photo.name !== imageName
+          );
+        }
+      });
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.message;
+      });
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
 }
