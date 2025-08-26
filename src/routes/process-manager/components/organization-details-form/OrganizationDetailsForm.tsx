@@ -7,6 +7,8 @@ import {
 } from "@/stores/organizations-store";
 import { Select } from "@/components/select/Select";
 import { formatCompanyType } from "@/utils";
+import { Form } from "@/components/form/Form";
+import { FormItem } from "@/components/form/FormItem";
 
 interface FormProps {
   values: Company;
@@ -17,49 +19,42 @@ export function OrganizationDetailsForm({
   values,
   onChange: handleChange,
 }: FormProps) {
-  const handleSingleInput = <K extends keyof Company>(
-    prop: K,
-    value: Company[K]
-  ) => {
-    handleChange({
-      ...values,
-      [prop]: value,
-    });
-  };
-
   return (
-    <div className={styles.form}>
+    <Form>
       <div className={styles.form__agreement}>
-        <div className={styles.form__item}>
-          <div className={styles.form__label}>Agreement number:</div>
+        <FormItem label="Agreement number">
           <Input
             value={values.contract.no}
             onChange={(e) =>
-              handleSingleInput("contract", {
-                ...values.contract,
-                no: e.target.value,
+              handleChange({
+                ...values,
+                contract: {
+                  ...values.contract,
+                  no: e.target.value,
+                },
               })
             }
           />
-        </div>
-        <div className={styles.form__item}>
-          <div className={styles.form__label}>Date:</div>
+        </FormItem>
+        <FormItem label="Date">
           <Input
             type="date"
             value={
               new Date(values.contract.issue_date).toISOString().split("T")[0]
             }
             onChange={(e) =>
-              handleSingleInput("contract", {
-                ...values.contract,
-                issue_date: new Date(e.target.value).toISOString(),
+              handleChange({
+                ...values,
+                contract: {
+                  ...values.contract,
+                  issue_date: new Date(e.target.value).toISOString(),
+                },
               })
             }
           />
-        </div>
+        </FormItem>
       </div>
-      <div className={styles.form__item}>
-        <div className={styles.form__label}>Business entity:</div>
+      <FormItem label="Buisness entity">
         <Select
           classNameInput={styles.form__select}
           options={Object.values(BusinessEntity).map((value) => ({
@@ -69,12 +64,14 @@ export function OrganizationDetailsForm({
           value={values.businessEntity}
           onChange={(v) => {
             if (Array.isArray(v)) return;
-            handleSingleInput("businessEntity", v as Company["businessEntity"]);
+            handleChange({
+              ...values,
+              businessEntity: v as Company["businessEntity"],
+            });
           }}
         />
-      </div>
-      <div className={styles.form__item}>
-        <div className={styles.form__label}>Company type:</div>
+      </FormItem>
+      <FormItem label="Company type">
         <Select
           multiple
           classNameInput={styles.form__select}
@@ -85,10 +82,10 @@ export function OrganizationDetailsForm({
           value={values.type}
           onChange={(v) => {
             if (!Array.isArray(v)) return;
-            handleSingleInput("type", v as Company["type"]);
+            handleChange({ ...values, type: v as Company["type"] });
           }}
         />
-      </div>
-    </div>
+      </FormItem>
+    </Form>
   );
 }

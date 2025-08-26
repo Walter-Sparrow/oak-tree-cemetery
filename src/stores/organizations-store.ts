@@ -277,4 +277,50 @@ export class OrganizationsStore {
       });
     }
   }
+
+  async updateContact(updatedContact: Partial<Contact> & { id: string }) {
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
+
+    try {
+      const response = await fetch(`${API}/contacts/${updatedContact.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.authStore.user?.token}`,
+        },
+        body: JSON.stringify({
+          lastname: updatedContact.lastname,
+          firstname: updatedContact.firstname,
+          phone: updatedContact.phone,
+          email: updatedContact.email,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Update contact error: ${response.status}`);
+      }
+
+      const partialUpdate = (await response.json()) as Partial<Contact>;
+
+      runInAction(() => {
+        const company = this.organizations.find(
+          (org) => org.contactId === updatedContact.id
+        );
+        if (company && company.contact) {
+          Object.assign(company.contact, partialUpdate);
+        }
+      });
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.message;
+      });
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
 }

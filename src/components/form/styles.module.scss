@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &__agreement {
+    display: flex;
+    align-items: center;
+
+    .form__item:last-child .form__label {
+      margin-left: 12px;
+      width: 44px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    > :last-child {
+      font-size: 14px;
+      font-weight: normal;
+      width: 100%;
+      flex: 1;
+      min-width: 160px;
+      line-height: 24px;
+    }
+  }
+
+  &__label {
+    font-size: 13px;
+    color: #000;
+    opacity: 50%;
+    width: 160px;
+  }
+}

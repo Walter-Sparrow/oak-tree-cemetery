@@ -1,4 +1,10 @@
 .card {
   padding: 24px;
   gap: 16px;
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 }
