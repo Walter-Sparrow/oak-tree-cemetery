@@ -19,7 +19,7 @@ export const OrganizationRenameModal = observer(
 
     const handleOk = () => {
       organizationsStore
-        .renameOrganization(organization.id, name)
+        .updateOrganization({ id: organization.id, name })
         .finally(() => openChangeHandler(false));
     };
 

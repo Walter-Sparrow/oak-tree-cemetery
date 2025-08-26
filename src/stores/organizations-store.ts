@@ -116,46 +116,6 @@ export class OrganizationsStore {
     }
   }
 
-  async renameOrganization(id: string, newName: string) {
-    runInAction(() => {
-      this.loading = true;
-      this.error = null;
-    });
-
-    try {
-      const response = await fetch(`${API}/companies/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.authStore.user?.token}`,
-        },
-        body: JSON.stringify({ name: newName }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Rename error: ${response.status}`);
-      }
-
-      runInAction(() => {
-        const index = this.organizations.findIndex((org) => org.id === id);
-        if (index !== -1) {
-          this.organizations[index] = {
-            ...this.organizations[index],
-            name: newName,
-          };
-        }
-      });
-    } catch (err: any) {
-      runInAction(() => {
-        this.error = err.message;
-      });
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
-    }
-  }
-
   async removeOrganization(id: string) {
     runInAction(() => {
       this.loading = true;
@@ -269,7 +229,9 @@ export class OrganizationsStore {
     }
   }
 
-  async updateOrganization(updatedCompany: Company) {
+  async updateOrganization(
+    updatedCompany: Partial<Company> & Pick<Company, "id">
+  ) {
     runInAction(() => {
       this.loading = true;
       this.error = null;
