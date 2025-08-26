@@ -6,6 +6,7 @@ import { Card } from "@/components/card/Card";
 import { Button } from "@/components/button/Button";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/stores/root-store";
+import { useRef } from "react";
 
 interface PhotosCardProps {
   organizationId: string;
@@ -15,9 +16,22 @@ interface PhotosCardProps {
 export const PhotosCard = observer(
   ({ organizationId, photos }: PhotosCardProps) => {
     const { organizationsStore } = useStore();
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleRemove = (name: string) => {
       organizationsStore.removeOrganizationImage(organizationId, name);
+    };
+
+    const handleUploadClick = () => {
+      fileInputRef.current?.click();
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        organizationsStore.uploadOrganizationImage(organizationId, file);
+        e.target.value = "";
+      }
     };
 
     return (
@@ -25,9 +39,18 @@ export const PhotosCard = observer(
         className={styles.card}
         title="Photos"
         actions={
-          <Button size="mini" icon={<PhotoAdd />}>
-            Add
-          </Button>
+          <>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <Button size="mini" icon={<PhotoAdd />} onClick={handleUploadClick}>
+              Add
+            </Button>
+          </>
         }
       >
         <div className={styles.card__photos}>

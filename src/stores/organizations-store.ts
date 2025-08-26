@@ -215,4 +215,45 @@ export class OrganizationsStore {
       });
     }
   }
+
+  async uploadOrganizationImage(companyId: string, file: File) {
+    runInAction(() => {
+      this.loading = true;
+      this.error = null;
+    });
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch(`${API}/companies/${companyId}/image`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.authStore.user?.token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Upload image error: ${response.status}`);
+      }
+
+      const newPhoto = (await response.json()) as Photo;
+
+      runInAction(() => {
+        const company = this.organizations.find((org) => org.id === companyId);
+        if (company) {
+          company.photos.push(newPhoto);
+        }
+      });
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.message;
+      });
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
 }
