@@ -15,21 +15,21 @@ export const OrganizationDetails = observer(() => {
   const org = viewStore.context as Company;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.header}>
+    <div className={styles.details}>
+      <div className={styles.details__content}>
+        <div className={styles.details__header}>
           <IconButton
             icon={<Arrow />}
-            className={styles.back}
+            className={styles["details__back-btn"]}
             onClick={() => viewStore.switchView("organizations")}
           />
           <h1>{org.name}</h1>
-          <div className={styles.controls}>
+          <div className={styles.details__controls}>
             <IconButton icon={<Pencil />} />
             <IconButton danger icon={<Trash />} />
           </div>
         </div>
-        <div className={styles.cards}>
+        <div className={styles.details__cards}>
           <OrganizationDetailsCard organization={org} />
           <ContactCard contact={org.contact} />
           <PhotosCard photos={org.photos} />

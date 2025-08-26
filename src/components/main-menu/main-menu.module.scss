@@ -1,6 +1,6 @@
 @use "@/styles/_colors.scss";
 
-.nav {
+.menu {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -8,7 +8,7 @@
   background-color: colors.color(primary);
   padding: 20px 6px;
 
-  .items {
+  &__items {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -18,7 +18,7 @@
     }
   }
 
-  .divider {
+  &__divider {
     display: block;
     width: 100%;
     height: 1px;

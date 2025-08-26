@@ -8,9 +8,9 @@ export const Dashboard = observer(() => {
   const [view, setView] = useState<MenuElements>("home");
 
   return (
-    <div className={styles.container}>
+    <div className={styles.dashboard}>
       <MainMenu value={view} onChange={setView} />
-      <main className={styles.content}>
+      <main className={styles.dashboard__content}>
         {view === "home" && <ProcessManager />}
       </main>
     </div>

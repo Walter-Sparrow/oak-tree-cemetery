@@ -49,7 +49,7 @@ export class OrganizationsStore {
     makeAutoObservable(this);
   }
 
-  async fetchCompamies(abortSignal?: AbortSignal) {
+  async fetchCompanies(abortSignal?: AbortSignal) {
     runInAction(() => {
       this.loading = true;
       this.error = null;

@@ -17,13 +17,13 @@ export function ProcessManagerSidebar({
 }: SidebarProps) {
   return (
     <Sidebar className={styles.sidebar}>
-      <div className={styles.content}>
-        <div className={styles.info}>
+      <div className={styles.sidebar__content}>
+        <div className={styles.sidebar__info}>
           <h2>Oak Tree Cemetery</h2>
           <span>Process Manager</span>
         </div>
-        <div className={styles.divider} />
-        <div className={styles.menu}>
+        <div className={styles.sidebar__divider} />
+        <div className={styles.sidebar__menu}>
           <Button
             variant={selectedView === "organizations" ? "filled" : "outlined"}
             onClick={() => onChangeView("organizations")}
@@ -47,7 +47,9 @@ export function ProcessManagerSidebar({
           </Button>
         </div>
       </div>
-      <span className={styles.copyright}>All Funeral Services © 2015-2025</span>
+      <span className={styles.sidebar__copyright}>
+        All Funeral Services © 2015-2025
+      </span>
     </Sidebar>
   );
 }

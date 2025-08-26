@@ -8,12 +8,12 @@ export const ProcessManager = observer(() => {
   const { viewStore } = useStore();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.manager}>
       <ProcessManagerSidebar
         selectedView={viewStore.view}
         onChangeView={(view) => viewStore.switchView(view)}
       />
-      <div className={styles.content}>{viewMap[viewStore.view]()}</div>
+      <div className={styles.manager__content}>{viewMap[viewStore.view]()}</div>
     </div>
   );
 });

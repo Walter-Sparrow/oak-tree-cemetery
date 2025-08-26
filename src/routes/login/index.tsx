@@ -18,10 +18,10 @@ export const Login = observer(() => {
   };
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit}>
-      <Card className={styles.card}>
-        <div className={styles.vendor}>
-          <span className={styles.logo}>
+    <form className={styles.login} onSubmit={handleSubmit}>
+      <Card className={styles.login__card}>
+        <div className={styles.login__vendor}>
+          <span className={styles.login__logo}>
             <Logo />
           </span>
           <span>Oak Tree Cemetery</span>
@@ -35,7 +35,9 @@ export const Login = observer(() => {
         <Button variant="filled" type="submit" disabled={authStore.loading}>
           {authStore.loading ? "Signing in..." : "Sign in"}
         </Button>
-        {authStore.error && <p className={styles.error}>{authStore.error}</p>}
+        {authStore.error && (
+          <p className={styles.login__error}>{authStore.error}</p>
+        )}
       </Card>
     </form>
   );

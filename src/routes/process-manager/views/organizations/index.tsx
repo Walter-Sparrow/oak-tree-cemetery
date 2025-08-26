@@ -11,12 +11,12 @@ export const Organizations = observer(() => {
 
   useEffect(() => {
     const abortController = new AbortController();
-    organizationsStore.fetchCompamies(abortController.signal);
+    organizationsStore.fetchCompanies(abortController.signal);
 
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [organizationsStore]);
 
   if (organizationsStore.loading) {
     return <Loading />;
@@ -27,14 +27,17 @@ export const Organizations = observer(() => {
   }
 
   return (
-    <div className={styles.container}>
-      {organizationsStore.organizations.map((org) => (
-        <OrganizationCard
-          key={org.id}
-          organization={org}
-          onClick={() => viewStore.switchView("organization", org)}
-        />
-      ))}
+    <div className={styles.organizations}>
+      <h1 className={styles.organizations__title}>Organizations</h1>
+      <div className={styles.organizations__container}>
+        {organizationsStore.organizations.map((org) => (
+          <OrganizationCard
+            key={org.id}
+            organization={org}
+            onClick={() => viewStore.switchView("organization", org)}
+          />
+        ))}
+      </div>
     </div>
   );
 });

@@ -16,7 +16,7 @@ export function MenuButton({ selected, icon, ...rest }: MenuButtonProps) {
       })}
       {...rest}
     >
-      <span className={styles["button__icon"]}>{icon}</span>
+      <span className={styles.button__icon}>{icon}</span>
     </button>
   );
 }

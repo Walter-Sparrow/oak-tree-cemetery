@@ -1,6 +1,6 @@
 @use "@/styles/_colors.scss";
 
-.container {
+.login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,33 +8,33 @@
   background-color: color-mix(in srgb, #fff, #000 10%);
   height: 100vh;
 
-  .card {
+  &__card {
     width: 480px;
     gap: 20px;
     padding: 48px;
+  }
 
-    .vendor {
-      display: flex;
-      gap: 16px;
-      align-items: center;
+  &__vendor {
+    display: flex;
+    gap: 16px;
+    align-items: center;
 
-      .logo {
-        display: block;
-        width: 32px;
-        height: 32px;
-
-        path {
-          fill: #000;
-        }
-      }
-
-      span {
-        font-size: 16px;
-      }
+    span {
+      font-size: 16px;
     }
   }
 
-  .error {
+  &__logo {
+    display: block;
+    width: 32px;
+    height: 32px;
+
+    path {
+      fill: #000;
+    }
+  }
+
+  &__error {
     margin: 0;
     color: colors.color(assistive, red);
   }

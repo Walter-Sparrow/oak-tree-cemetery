@@ -17,7 +17,7 @@ export function Card({
   return (
     <div {...rest} className={classNames(styles.card, className)}>
       {(title || actions) && (
-        <div className={styles.header}>
+        <div className={styles.card__header}>
           <span>{title}</span>
           {actions}
         </div>

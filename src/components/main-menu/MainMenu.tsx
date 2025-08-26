@@ -19,9 +19,9 @@ export const MainMenu = observer(({ value, onChange }: MenuProps) => {
   const { authStore } = useStore();
 
   return (
-    <nav className={styles.nav}>
-      <div className={styles.items}>
-        <span className={styles.logo}>
+    <nav className={styles.menu}>
+      <div className={styles.menu__items}>
+        <span className={styles.menu__logo}>
           <Logo />
         </span>
         <MenuButton
@@ -37,8 +37,8 @@ export const MainMenu = observer(({ value, onChange }: MenuProps) => {
           onClick={() => onChange("search")}
         />
       </div>
-      <span className={styles.divider} />
-      <div className={styles.items}>
+      <span className={styles.menu__divider} />
+      <div className={styles.menu__items}>
         <MenuButton icon={<Gear />} title="Settings" />
         <MenuButton
           icon={<SignOut />}
