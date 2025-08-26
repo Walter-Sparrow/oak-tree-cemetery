@@ -6,7 +6,8 @@ import { Card } from "@/components/card/Card";
 import { Button } from "@/components/button/Button";
 import { observer } from "mobx-react-lite";
 import { useStore } from "@/stores/root-store";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { PhotoViewer } from "@/components/photo-viewer/PhotoViewer";
 
 interface PhotosCardProps {
   organizationId: string;
@@ -17,6 +18,7 @@ export const PhotosCard = observer(
   ({ organizationId, photos }: PhotosCardProps) => {
     const { organizationsStore } = useStore();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
 
     const handleRemove = (name: string) => {
       organizationsStore.removeOrganizationImage(organizationId, name);
@@ -35,37 +37,54 @@ export const PhotosCard = observer(
     };
 
     return (
-      <Card
-        className={styles.card}
-        title="Photos"
-        actions={
-          <>
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-            <Button size="mini" icon={<PhotoAdd />} onClick={handleUploadClick}>
-              Add
-            </Button>
-          </>
-        }
-      >
-        <div className={styles.card__photos}>
-          {photos.map((photo) => (
-            <div key={photo.name} className={styles.card__photo}>
-              <img src={photo.thumbpath} alt={photo.name} />
-              <Button
-                variant="filled"
-                icon={<Trash />}
-                onClick={() => handleRemove(photo.name)}
+      <>
+        <Card
+          className={styles.card}
+          title="Photos"
+          actions={
+            <>
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
               />
-            </div>
-          ))}
-        </div>
-      </Card>
+              <Button
+                size="mini"
+                icon={<PhotoAdd />}
+                onClick={handleUploadClick}
+              >
+                Add
+              </Button>
+            </>
+          }
+        >
+          <div className={styles.card__photos}>
+            {photos.map((photo) => (
+              <div
+                key={photo.name}
+                className={styles.card__photo}
+                onClick={() => setSelectedPhoto(photo)}
+              >
+                <img src={photo.thumbpath} alt={photo.name} />
+                <Button
+                  variant="filled"
+                  icon={<Trash />}
+                  onClick={() => handleRemove(photo.name)}
+                />
+              </div>
+            ))}
+          </div>
+        </Card>
+        {selectedPhoto && (
+          <PhotoViewer
+            photoUrl={selectedPhoto.filepath}
+            alt={selectedPhoto.name}
+            onClose={() => setSelectedPhoto(null)}
+          />
+        )}
+      </>
     );
   }
 );
